@@ -1,7 +1,7 @@
 from django.db import models
 
 class CSPANdata(models.Model):
-    date=models.CharField(max_length=10000)
-    summary=models.CharField(max_length=10000000000000000000000000)
+    name=models.CharField(max_length=10000)
+    description=models.CharField(max_length=10000000000000000000000000)
     def __str__(self):
-        return self.date + ": " + self.summary
+        return self.name + ": " + self.description
