@@ -4,4 +4,4 @@ from rest_framework import serializers
 class CSPANSerializer(serializers.ModelSerializer):
     class Meta:
         model = CSPANdata
-        fields = ['id','name','description']
+        fields = ['id','name','date', 'description']

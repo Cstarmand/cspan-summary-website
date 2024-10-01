@@ -10,12 +10,13 @@ from django.shortcuts import render
 def getData(request, format=None):
     if request.method == 'GET':
         #filler so we don't have an error
-        print()
+        data = CSPANdata.objects.all()
         #get data from website scraper
         #send to Claude
         #postSummary()
+        return render(request, 'result/result.html', {'data': data})
 
-@api_view(['PUT'])
+@api_view(['POST'])
 
 def postSummary(request, format=None):
     #filler so we don't have an error
