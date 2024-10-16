@@ -93,14 +93,14 @@ def add_transcripts(events: list):
 
 
 #little example of what it can do (only runs as the main file)
-if __name__ == "__main__":
-    house_sessions = get_session_list_house()
-    events = dictify_session_list(house_sessions)
+# if __name__ == "__main__":
+#     house_sessions = get_session_list_house()
+#     events = dictify_session_list(house_sessions)
     
-    sub_events = events[0:3]
+#     sub_events = events[0:3]
 
-    transcript_and_events = add_transcripts(sub_events)
+#     transcript_and_events = add_transcripts(sub_events)
     
-    for i in range(len(transcript_and_events)):
-        print(transcript_and_events[i])
-        print(json.dumps(transcript_and_events[i]['transcript']))
+#     for i in range(len(transcript_and_events)):
+#         print(transcript_and_events[i])
+#         print(json.dumps(transcript_and_events[i]['transcript']))
