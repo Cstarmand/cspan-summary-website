@@ -54,7 +54,7 @@ def joint_data():
 
     joint_sessions = get_session_list_joint()
 
-    events = dictify_session_list(joint_sessions)
+    events = dictify_jointsession_list(joint_sessions)
 
     transcript_and_events = add_transcripts(events)
 
@@ -97,8 +97,9 @@ def pull_summary():
 
     all_data['senate'] = senate_all
     all_data['senate']['summary'] = transcript_summaries['senate']
-    
+
     all_data['joint'] = joint_all
     all_data['joint']['summary'] = transcript_summaries['joint']
+    return all_data
     
 

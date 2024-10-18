@@ -20,8 +20,9 @@ import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('result/', views.getData),
-    path('results/<int:id>', views.postSummary)
+    path('home/', views.homePage),
+    path('summary/<str:id>', views.summaryPage),
+    path('about/', views.aboutPage)
 ]
 
 from rest_framework.urlpatterns import format_suffix_patterns

@@ -78,6 +78,27 @@ def dictify_session_list(tableRows: BeautifulSoup):
         events.append(event)
     return events
 
+def dictify_jointsession_list(tableRows: BeautifulSoup):
+    events = []
+
+    for i in tableRows[1::]:
+        event = {}
+        link = 'https://www.congress.gov' + i.find_all('a')[0]['href']
+        if link[-5::] != '/text':
+            link += '/text'
+        event['link'] = link
+        tags = i.find_all('td')
+        event['date'] = tags[0].text
+        event['title'] = tags[1].text
+        event['id'] = int(tags[0]['data-text'])
+        committee = tags[2].find_all('a')
+        if len(committee) > 0:
+            event['committee'] = committee[0].text
+        else:
+            event['committee'] = 'Non Specific'
+        events.append(event)
+    return events
+
 #returns of a list of event dictionaries with their transcript added
 def add_transcripts(events: list):
     transcripts = []
