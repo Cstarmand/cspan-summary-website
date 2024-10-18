@@ -24,6 +24,24 @@ def summaryPage(request, id, format=None):
     # id is a string value that matches the id provided from congress.gov
     if request.method == 'GET':
         data = pull_summary()
+        check = True
+        if check == True: 
+            for x in range(len(data['house'])):
+                if data['house'][x]['id'] == id:
+                    data = data['house'][x]
+                    check = False
+        if check == True: 
+            for x in range(len(data['senate'])):
+                if data['senate'][x]['id'] == id:
+                    data = data['senate'][x]
+                    check = False
+        if check == True: 
+            for x in range(len(data['joint'])):
+                if data['joint'][x]['id'] == id:
+                    data = data['joint'][x]
+                    check = False
+        if check == True:
+            data = {'title':'invalid id','id':id,'transcript':'','summary':'','date':'','committee':''}
         return render(request, 'summary/summary.html', {'data': data, 'id': id})
     
 def aboutPage(request, format=None):

@@ -72,34 +72,41 @@ def pull_summary():
     senate_transcripts, senate_id, senate_all = senate_data()
     joint_transcripts, joint_id, joint_all = joint_data()
 
-        # Summarize new transcripts
+    #Funnel all data into one dictionary
+    all_data['house'] = house_all
+    all_data['senate'] = senate_all
+    all_data['joint'] = joint_all
+
+    # Summarize new transcripts
     for x in range(len(house_id)):
         if house_id[x] not in combined_data:
             combined_data.append(house_id[x])
             summary = claude_summary(house_transcripts[x])
-            transcript_summaries['house'].append(summary)
+            #transcript_summaries['house'].append(summary)
+            all_data['house'][x]['summary'] = summary
 
     for x in range(len(senate_id)):
         if senate_id[x] not in combined_data:
             combined_data.append(senate_id[x])
             summary = claude_summary(senate_transcripts[x])
-            transcript_summaries['senate'].append(summary)
+            #transcript_summaries['senate'].append(summary)
+            all_data['senate'][x]['summary'] = summary
 
     for x in range(len(joint_id)):
         if joint_id[x] not in combined_data:
             combined_data.append(joint_id[x])
             summary = claude_summary(joint_transcripts[x])
-            transcript_summaries['joint'].append(summary)
+            #transcript_summaries['joint'].append(summary)
+            all_data['joint'][x]['summary'] = summary
 
-        #Funnel all data into one dictionary
-    all_data['house'] = house_all
-    all_data['house']['summary'] = transcript_summaries['house']
+    # all_data['house'] = house_all
+    # all_data['house']['summary'] = transcript_summaries['house']
 
-    all_data['senate'] = senate_all
-    all_data['senate']['summary'] = transcript_summaries['senate']
+    # all_data['senate'] = senate_all
+    # all_data['senate']['summary'] = transcript_summaries['senate']
 
-    all_data['joint'] = joint_all
-    all_data['joint']['summary'] = transcript_summaries['joint']
+    # all_data['joint'] = joint_all
+    # all_data['joint']['summary'] = transcript_summaries['joint']
     return all_data
     
 

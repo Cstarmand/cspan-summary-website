@@ -5,9 +5,28 @@
         <title>Congressional Summary Website</title>
     </head>
     <body>
-        <h1>Congressional Summary Website</h1>
+        <h1>---Congressional Summary Website---</h1>
+        <h2>House Sessions: Most Recent</h2>
         <u1>
-            
+            {% for x in range(len(data['house'])) %}
+            <li><a href="summary/{{data['house'][len(data['house'])-(x+1)]p['id']}}">{{data['house'][len(data['house'])-(x+1)]['title']}}</a></li>
+            {% endfor %}
         </u1>
+        <p></p>
+        <h2>Senate Sessions: Most Recent</h2>
+        <u1>
+            {% for x in range(len(data['senate'])) %}
+            <li><a href="summary/{{data['senate'][len(data['senate'])-(x+1)]p['id']}}">{{data['senate'][len(data['senate'])-(x+1)]['title']}}</a></li>
+            {% endfor %}
+        </u1>
+        <p></p>
+        <h2>Joint Sessions: Most Recent</h2>
+        <u1>
+            {% for x in range(len(data['joint'])) %}
+            <li><a href="summary/{{data['joint'][len(data['joint'])-(x+1)]p['id']}}">{{data['joint'][len(data['joint'])-(x+1)]['title']}}</a></li>
+            {% endfor %}
+        </u1>
+        <p></p>
+        <strong><a href="#">Back To Top</a></strong>
     </body>
 </html>
