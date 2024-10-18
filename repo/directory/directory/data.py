@@ -66,43 +66,39 @@ def joint_data():
 
 
 # limit updates to daily occurences
-while True:
-    if not current_date == stored_date:
-        # Daily refresh check on transcripts
-        stored_date = current_date
-
-        # Consolidates data
-        house_transcripts, house_id, house_all = house_data()
-        senate_transcripts, senate_id, senate_all = senate_data()
-        joint_transcripts, joint_id, joint_all = joint_data()
+def pull_summary():
+    # Consolidates data
+    house_transcripts, house_id, house_all = house_data()
+    senate_transcripts, senate_id, senate_all = senate_data()
+    joint_transcripts, joint_id, joint_all = joint_data()
 
         # Summarize new transcripts
-        for x in range(len(house_id)):
-            if house_id[x] not in combined_data:
-                combined_data.append(house_id[x])
-                summary = claude_summary(house_transcripts[x])
-                transcript_summaries['house'].append(summary)
+    for x in range(len(house_id)):
+        if house_id[x] not in combined_data:
+            combined_data.append(house_id[x])
+            summary = claude_summary(house_transcripts[x])
+            transcript_summaries['house'].append(summary)
 
-        for x in range(len(senate_id)):
-            if senate_id[x] not in combined_data:
-                combined_data.append(senate_id[x])
-                summary = claude_summary(senate_transcripts[x])
-                transcript_summaries['senate'].append(summary)
+    for x in range(len(senate_id)):
+        if senate_id[x] not in combined_data:
+            combined_data.append(senate_id[x])
+            summary = claude_summary(senate_transcripts[x])
+            transcript_summaries['senate'].append(summary)
 
-        for x in range(len(joint_id)):
-            if joint_id[x] not in combined_data:
-                combined_data.append(joint_id[x])
-                summary = claude_summary(joint_transcripts[x])
-                transcript_summaries['joint'].append(summary)
+    for x in range(len(joint_id)):
+        if joint_id[x] not in combined_data:
+            combined_data.append(joint_id[x])
+            summary = claude_summary(joint_transcripts[x])
+            transcript_summaries['joint'].append(summary)
 
         #Funnel all data into one dictionary
-        all_data['house'] = house_all
-        all_data['house']['summary'] = transcript_summaries['house']
+    all_data['house'] = house_all
+    all_data['house']['summary'] = transcript_summaries['house']
 
-        all_data['senate'] = senate_all
-        all_data['senate']['summary'] = transcript_summaries['senate']
-
-        all_data['joint'] = joint_all
-        all_data['joint']['summary'] = transcript_summaries['joint']
+    all_data['senate'] = senate_all
+    all_data['senate']['summary'] = transcript_summaries['senate']
+    
+    all_data['joint'] = joint_all
+    all_data['joint']['summary'] = transcript_summaries['joint']
     
 
