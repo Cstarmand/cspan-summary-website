@@ -78,6 +78,8 @@ def pull_summary():
     all_data['joint'] = joint_all
 
     # Summarize new transcripts
+    # Currently summarizing every single time -> change for cost
+    # Make database to put info into
     for x in range(len(house_id)):
         if house_id[x] not in combined_data:
             combined_data.append(house_id[x])
