@@ -4,7 +4,15 @@
         <meta charset="utf-8">
         <title>Congressional Summary Website</title>
         <style>
-
+            body {
+        background-image: url("https://th.bing.com/th/id/OIP.qNBySSmEC-SPjwn2ancsQwHaEN?w=300&h=180&c=7&r=0&o=5&pid=1.7");
+        height: 100%;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        backdrop-filter: blur(8px);
+      }
         </style>
     </head>
     <body>
@@ -18,10 +26,22 @@
                     <button type="submit">Search</button>
                 </form>
             </div>
-            <div class="container">
+            <!-- <div class="container">
                 <form action="result/" class="search-bar" method="post">
                     {% csrf_token %}
                     <input type="text" placeholder="Search By Committee" name = 'q'>
+                    <button type="submit">Search</button>
+                </form>
+            </div> -->
+            <div class="container">
+                <form action="result/" class="search-bar" method="post">
+                    {% csrf_token %}
+                    <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q">
+                    <datalist id="committees">
+                        {% for committee in committees %}
+                            <option value="{{committee}}"></option>
+                        {% endfor %}
+                    </datalist>
                     <button type="submit">Search</button>
                 </form>
             </div>

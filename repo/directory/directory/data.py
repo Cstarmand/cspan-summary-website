@@ -1,6 +1,6 @@
 from datetime import datetime
-from transcript_retrieval_functions import *
-from claude import *
+from .transcript_retrieval_functions import *
+from .claude import *
 
 current_date = datetime.now().date()
 stored_date = ''

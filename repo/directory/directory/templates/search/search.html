@@ -3,7 +3,15 @@
         <meta charset="utf-8">
         <title>Results for {{ searched }}</title>
         <style>
-            
+            body {
+        background-image: url("https://th.bing.com/th/id/OIP.5EaIp8TtD388vcpLkH68FAHaE7?w=251&h=180&c=7&r=0&o=5&pid=1.7");
+        height: 100%;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        backdrop-filter: blur(8px);
+      }
         </style>
     </head>
     <body>
@@ -17,16 +25,31 @@
                     <button type="submit">Search</button>
                 </form>
             </div>
-            <div class="container">
+            <!-- <div class="container">
                 <form action="result/" class="search-bar" method="post">
                     {% csrf_token %}
                     <input type="text" placeholder="Search By Committee" name = 'q'>
+                    <button type="submit">Search</button>
+                </form>
+            </div> -->
+            <div class="container">
+                <form action="result/" class="search-bar" method="post">
+                    {% csrf_token %}
+                    <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q">
+                    <datalist id="committees">
+                        {% for committee in committees %}
+                            <option value="{{committee}}"></option>
+                        {% endfor %}
+                    </datalist>
                     <button type="submit">Search</button>
                 </form>
             </div>
         </div>
         {% if searched %}
             <ul>
+                {% if len(return[0]['id']) == '' %}
+                <h2>No Search Results</h2>
+                {% endif %}
                 {% for x in range(len(return)) %}
                 <li><a href="summary/{{return[x]['id']}}">{{return[x]['title']}}</a></li>
                 {% endfor %}
