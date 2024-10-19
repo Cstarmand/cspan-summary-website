@@ -56,6 +56,38 @@
         padding:2px;
         backdrop-filter: blur(20px);
       }
+      .topnav{
+      overflow: hidden;
+    }
+    .topnav a{
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .topnav a:hover, button:hover{
+      background-color: #ddd;
+      color: black;
+    }
+      input{
+      background-color: rgba(0,0,0,0.4);
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 12px 12px;
+      text-decoration: none;
+      font-size: 14px;
+      }
+      button{
+        background-color: rgba(0,0,0,0.4);
+      color: #f2f2f2;
+      text-align: center;
+      padding: 12px 12px;
+      text-decoration: none;
+      font-size: 14px;
+      }
         </style>
     </head>
     <body>
@@ -64,7 +96,6 @@
             <a href="about/">About</a>
             <div class="container">
                 <form action="search/" class="search-bar" method="post">
-                    {% csrf_token %}
                     <input type="text" placeholder="Search By Title" name = 'q'>
                     <button type="submit">Search</button>
                 </form>
@@ -78,7 +109,6 @@
             </div> -->
             <div class="container">
                 <form action="result/" class="search-bar" method="post">
-                    {% csrf_token %}
                     <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q">
                     <datalist id="committees">
                         {% for committee in committees %}
@@ -89,6 +119,7 @@
                 </form>
             </div>
           </div>
+        <p></p>
         <h1>{{data['title']}}</h1>
         <h2>{{data['date']}}</h2>
         <h2>{{data['id']}}</h2>
