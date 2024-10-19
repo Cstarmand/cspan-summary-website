@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{{data['title']}}</title>
+        <title>Results for {{ searched }}</title>
         <style>
             
         </style>
@@ -24,12 +24,16 @@
                     <button type="submit">Search</button>
                 </form>
             </div>
-          </div>
-        <h1>{{data['title']}}</h1>
-        <h2>{{data['date']}}</h2>
-        <h2>{{data['id']}}</h2>
-        <h2>Committee: {{data['committee']}}</h2>
-        <p>{{data['summary']}}</p>
+        </div>
+        {% if searched %}
+            <ul>
+                {% for x in range(len(return)) %}
+                <li><a href="summary/{{return[x]['id']}}">{{return[x]['committee']}} - {{return[x]['title']}}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1>No search terms entered...</h1>
+        {% endif %}
         <strong><a href="#">Back To Top</a></strong>
     </body>
 </html>

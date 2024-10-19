@@ -20,6 +20,42 @@ def homePage(request, format=None):
         data = pull_summary()
         return render(request, 'home/home.html', {'data': data})
     
+def resultPage(request, format=None):
+    if request.method == "POST":
+        data = pull_summary()
+        ret = []
+        searched = request.POST('searched')
+        for x in range(len(data['house'])):
+            if searched in data['house'][x]['committee']:
+                ret.append(data['house'][x])
+        for x in range(len(data['senate'])):
+            if searched in data['senate'][x]['committee']:
+                ret.append(data['senate'][x])
+        for x in range(len(data['joint'])):
+            if searched in data['joint'][x]['committee']:
+                ret.append(data['joint'][x])
+        return render(request, 'result/result.html', {'data': data, 'searched':searched, 'return':ret})
+    else:
+        return render(request, 'result/result.html', {'data':'', 'searched':searched, 'return':''})
+
+def searchPage(request, format=None):
+    if request.method == "POST":
+        data = pull_summary()
+        ret = []
+        searched = request.POST('searched')
+        for x in range(len(data['house'])):
+            if searched in data['house'][x]['title']:
+                ret.append(data['house'][x])
+        for x in range(len(data['senate'])):
+            if searched in data['senate'][x]['title']:
+                ret.append(data['senate'][x])
+        for x in range(len(data['joint'])):
+            if searched in data['joint'][x]['title']:
+                ret.append(data['joint'][x])
+        return render(request, 'search/search.html', {'data': data, 'searched':searched, 'return':ret})
+    else:
+        return render(request, 'search/search.html', {'data':'', 'searched':searched, 'return':''})
+
 def summaryPage(request, id, format=None):
     # id is a string value that matches the id provided from congress.gov
     if request.method == 'GET':

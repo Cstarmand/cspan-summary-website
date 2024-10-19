@@ -2,9 +2,30 @@
     <head>
         <meta charset="utf-8">
         <title>About Us</title>
+        <style>
+            
+        </style>
     </head>
     <body>
+        <div class="topnav">
+            <a href="home/">Home</a>
+            <a class = "active" href="about/">About</a>
+            <div class="container">
+                <form action="search/" class="search-bar" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search By Title" name = 'q'>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="container">
+                <form action="result/" class="search-bar" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search By Committee" name = 'q'>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+          </div>
         <p></p>
-        <strong><a href="home/">Back To Home</a></strong>
+        <strong><a href="#">Back To Top</a></strong>
     </body>
 </html>

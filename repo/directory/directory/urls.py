@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.homePage),
     path('summary/<str:id>', views.summaryPage),
-    path('about/', views.aboutPage)
+    path('about/', views.aboutPage),
+    path('search/', views.searchPage),
+    path('result/', views.resultPage)
 ]
 
 from rest_framework.urlpatterns import format_suffix_patterns

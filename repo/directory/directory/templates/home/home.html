@@ -3,8 +3,29 @@
     <head>
         <meta charset="utf-8">
         <title>Congressional Summary Website</title>
+        <style>
+
+        </style>
     </head>
     <body>
+        <div class="topnav">
+            <a class="active" href="home/">Home</a>
+            <a href="about/">About</a>
+            <div class="container">
+                <form action="search/" class="search-bar" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search By Title" name = 'q'>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="container">
+                <form action="result/" class="search-bar" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Search By Committee" name = 'q'>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+          </div>
         <h1>---Congressional Summary Website---</h1>
         <h2>House Sessions: Most Recent</h2>
         <u1>
@@ -28,6 +49,5 @@
         </u1>
         <p></p>
         <strong><a href="#">Back To Top</a></strong>
-        <strong><a href="about/">About Us</a></strong>
     </body>
 </html>
