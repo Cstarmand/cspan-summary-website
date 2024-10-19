@@ -63,6 +63,8 @@ def dictify_session_list(tableRows: BeautifulSoup):
     for i in tableRows[1::]:
         event = {}
         link = 'https://www.congress.gov' + i.find_all('a')[0]['href']
+        #sometimes the link might have no /text at the end for whatever reason so if the program doesn't 
+        #have that at the end of the link it adds it so the text can be scraped
         if link[-5::] != '/text':
             link += '/text'
         event['link'] = link
