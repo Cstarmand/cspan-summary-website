@@ -7,7 +7,7 @@ import anthropic
 def claude_summary(DATA):
     ENDPOINT = 'https://api.anthropic.com/v1/claude-3.5-sonnet'
 # fyi current claude account is on free, insufficent funds error is out of tokens
-    KEY = f"sk-ant-api03-yjWtPheKJUMc8nt_NxmFayd17CVhjwaqRTyNjHnq9I0Nn1pwoByOfLrkswX7GiHiRwuEyRi9MaX9hTEja7dESQ-GnJ-RAAA"
+    KEY = f"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"
 
     client = anthropic.Anthropic(api_key=KEY)
 
@@ -26,3 +26,4 @@ def claude_summary(DATA):
 # else: 
 #     result = f"Error: {response.status_code}"
 #     print(result)
+claude_summary("hello")
