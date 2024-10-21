@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import render
+import json
 from .data import *
 
 @api_view(['GET'])
@@ -16,7 +17,18 @@ from .data import *
 #         return render(request, 'result/result.html', {'data': data})
 
 def homePage(request, format=None):
-    data = pull_summary()
+    data = {}
+    #Pulling data from respective json files
+    with open('house_data_ex_transcripts.json', 'r') as file:
+        house_all_data = json.load(file)
+    with open('senate_data_ex_transcripts.json', 'r') as file:
+        senate_all_data = json.load(file)
+    with open('joint_data_ex_transcripts.json', 'r') as file:
+        joint_all_data = json.load(file)
+    
+    data['house'] = house_all_data
+    data['senate'] = senate_all_data
+    data['joint'] = joint_all_data
 
     committees = []
     for x in range(len(data['house'])):
@@ -33,7 +45,18 @@ def homePage(request, format=None):
     
 def resultPage(request, format=None):
     if request.method == "POST":
-        data = pull_summary()
+        data = {}
+        #Pulling data from respective json files
+        with open('house_data_ex_transcripts.json', 'r') as file:
+            house_all_data = json.load(file)
+        with open('senate_data_ex_transcripts.json', 'r') as file:
+            senate_all_data = json.load(file)
+        with open('joint_data_ex_transcripts.json', 'r') as file:
+            joint_all_data = json.load(file)
+        
+        data['house'] = house_all_data
+        data['senate'] = senate_all_data
+        data['joint'] = joint_all_data
 
         committees = []
         for x in range(len(data['house'])):
@@ -63,7 +86,18 @@ def resultPage(request, format=None):
 
 def searchPage(request, format=None):
     if request.method == "POST":
-        data = pull_summary()
+        data = {}
+        #Pulling data from respective json files
+        with open('house_data_ex_transcripts.json', 'r') as file:
+            house_all_data = json.load(file)
+        with open('senate_data_ex_transcripts.json', 'r') as file:
+            senate_all_data = json.load(file)
+        with open('joint_data_ex_transcripts.json', 'r') as file:
+            joint_all_data = json.load(file)
+        
+        data['house'] = house_all_data
+        data['senate'] = senate_all_data
+        data['joint'] = joint_all_data
 
         committees = []
         for x in range(len(data['house'])):
@@ -93,7 +127,18 @@ def searchPage(request, format=None):
 
 def summaryPage(request, id, format=None):
     # id is a string value that matches the id provided from congress.gov
-    data = pull_summary()
+    data = {}
+    #Pulling data from respective json files
+    with open('house_data_ex_transcripts.json', 'r') as file:
+        house_all_data = json.load(file)
+    with open('senate_data_ex_transcripts.json', 'r') as file:
+        senate_all_data = json.load(file)
+    with open('joint_data_ex_transcripts.json', 'r') as file:
+        joint_all_data = json.load(file)
+    
+    data['house'] = house_all_data
+    data['senate'] = senate_all_data
+    data['joint'] = joint_all_data
 
     committees = []
     for x in range(len(data['house'])):
