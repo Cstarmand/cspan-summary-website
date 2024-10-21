@@ -6,7 +6,7 @@ import anthropic
 
 def claude_summary(DATA):
     ENDPOINT = 'https://api.anthropic.com/v1/claude-3.5-sonnet'
-# fyi current claude account is on free, 429 error is out of tokens
+# fyi current claude account is on free, insufficent funds error is out of tokens
     KEY = f"sk-ant-api03-yjWtPheKJUMc8nt_NxmFayd17CVhjwaqRTyNjHnq9I0Nn1pwoByOfLrkswX7GiHiRwuEyRi9MaX9hTEja7dESQ-GnJ-RAAA"
 
     client = anthropic.Anthropic(api_key=KEY)
