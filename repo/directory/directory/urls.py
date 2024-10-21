@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import *
+from .data import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +26,8 @@ urlpatterns = [
     path('summary/<str:id>', summaryPage),
     path('about/', aboutPage),
     path('search/', searchPage),
-    path('result/', resultPage)
+    path('result/', resultPage),
+    path('generateforserverusage/', pull_summary)
 ]
 
 from rest_framework.urlpatterns import format_suffix_patterns

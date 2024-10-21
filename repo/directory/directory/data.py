@@ -2,6 +2,10 @@ from datetime import datetime
 import json
 from .transcript_retrieval_functions import *
 from .claude import *
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.shortcuts import render
 
 transcript_summaries = {'house':[], 'senate':[], 'joint':[]}
 
@@ -81,7 +85,7 @@ def joint_data(joint_all_data, combined_data):
 
 
 # limit updates to daily occurences
-def pull_summary():
+def pull_summary(request, format=None):
     #All known ids
     combined_data = []
 
@@ -172,4 +176,4 @@ def pull_summary():
     with open('joint_data_ex_transcripts.json', 'w') as file:
         json.dump(joint_all_data, file)
 
-    return "Update Complete"
+    return render(request, 'generateforserverusage/generateforserverusage.html', {'data': {'house':house_final,'senate':senate_final,'joint':joint_final}})
