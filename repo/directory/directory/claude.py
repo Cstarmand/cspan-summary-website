@@ -25,5 +25,3 @@ def claude_summary(DATA):
 #     print(result)
 # else: 
 #     result = f"Error: {response.status_code}"
-#     print(result)
-claude_summary("hello")
