@@ -23,12 +23,9 @@ def homePage(request, format=None):
         house_all_data = json.load(file)
     with open('senate_data_ex_transcripts.json', 'r') as file:
         senate_all_data = json.load(file)
-    with open('joint_data_ex_transcripts.json', 'r') as file:
-        joint_all_data = json.load(file)
     
     data['house'] = house_all_data
     data['senate'] = senate_all_data
-    data['joint'] = joint_all_data
 
     committees = []
     for x in range(len(data['house'])):
@@ -37,9 +34,6 @@ def homePage(request, format=None):
     for x in range(len(data['senate'])):
         if data['senate'][x]['committee'] not in committees:
             committees.append(data['senate'][x]['committee'])
-    for x in range(len(data['joint'])):
-        if data['joint'][x]['committee'] not in committees:
-            committees.append(data['joint'][x]['committee'])
     
     return render(request, 'home/home.html', {'data': data,'committees':committees})
     
@@ -51,12 +45,9 @@ def resultPage(request, format=None):
             house_all_data = json.load(file)
         with open('senate_data_ex_transcripts.json', 'r') as file:
             senate_all_data = json.load(file)
-        with open('joint_data_ex_transcripts.json', 'r') as file:
-            joint_all_data = json.load(file)
         
         data['house'] = house_all_data
         data['senate'] = senate_all_data
-        data['joint'] = joint_all_data
 
         committees = []
         for x in range(len(data['house'])):
@@ -65,9 +56,6 @@ def resultPage(request, format=None):
         for x in range(len(data['senate'])):
             if data['senate'][x]['committee'] not in committees:
                 committees.append(data['senate'][x]['committee'])
-        for x in range(len(data['joint'])):
-            if data['joint'][x]['committee'] not in committees:
-                committees.append(data['joint'][x]['committee'])
 
         ret = []
         searched = request.POST('searched')
@@ -77,9 +65,6 @@ def resultPage(request, format=None):
         for x in range(len(data['senate'])):
             if searched in data['senate'][x]['committee']:
                 ret.append(data['senate'][x])
-        for x in range(len(data['joint'])):
-            if searched in data['joint'][x]['committee']:
-                ret.append(data['joint'][x])
         return render(request, 'result/result.html', {'data': data, 'searched':searched, 'return':ret,'committees':committees})
     else:
         return render(request, 'result/result.html', {'data':'', 'searched':searched, 'committees':committees,'return':[{'id':'','committee':'','title':'','date':''}]})
@@ -92,12 +77,9 @@ def searchPage(request, format=None):
             house_all_data = json.load(file)
         with open('senate_data_ex_transcripts.json', 'r') as file:
             senate_all_data = json.load(file)
-        with open('joint_data_ex_transcripts.json', 'r') as file:
-            joint_all_data = json.load(file)
         
         data['house'] = house_all_data
         data['senate'] = senate_all_data
-        data['joint'] = joint_all_data
 
         committees = []
         for x in range(len(data['house'])):
@@ -106,9 +88,6 @@ def searchPage(request, format=None):
         for x in range(len(data['senate'])):
             if data['senate'][x]['committee'] not in committees:
                 committees.append(data['senate'][x]['committee'])
-        for x in range(len(data['joint'])):
-            if data['joint'][x]['committee'] not in committees:
-                committees.append(data['joint'][x]['committee'])
 
         ret = []
         searched = request.POST('searched')
@@ -118,9 +97,6 @@ def searchPage(request, format=None):
         for x in range(len(data['senate'])):
             if searched in data['senate'][x]['title']:
                 ret.append(data['senate'][x])
-        for x in range(len(data['joint'])):
-            if searched in data['joint'][x]['title']:
-                ret.append(data['joint'][x])
         return render(request, 'search/search.html', {'data': data, 'searched':searched, 'return':ret,'committees':committees})
     else:
         return render(request, 'search/search.html', {'data':'', 'searched':searched, 'committees':committees, 'return':{'id':'','committee':'','title':'','date':''}})
@@ -133,12 +109,9 @@ def summaryPage(request, id, format=None):
         house_all_data = json.load(file)
     with open('senate_data_ex_transcripts.json', 'r') as file:
         senate_all_data = json.load(file)
-    with open('joint_data_ex_transcripts.json', 'r') as file:
-        joint_all_data = json.load(file)
     
     data['house'] = house_all_data
     data['senate'] = senate_all_data
-    data['joint'] = joint_all_data
 
     committees = []
     for x in range(len(data['house'])):
@@ -147,9 +120,6 @@ def summaryPage(request, id, format=None):
     for x in range(len(data['senate'])):
         if data['senate'][x]['committee'] not in committees:
             committees.append(data['senate'][x]['committee'])
-    for x in range(len(data['joint'])):
-        if data['joint'][x]['committee'] not in committees:
-            committees.append(data['joint'][x]['committee'])
 
     check = True
     if check == True: 
@@ -161,11 +131,6 @@ def summaryPage(request, id, format=None):
         for x in range(len(data['senate'])):
             if data['senate'][x]['id'] == id:
                 data = data['senate'][x]
-                check = False
-    if check == True: 
-        for x in range(len(data['joint'])):
-            if data['joint'][x]['id'] == id:
-                data = data['joint'][x]
                 check = False
     if check == True:
         data = {'title':'invalid id','id':id,'transcript':'','summary':'','date':'','committee':''}

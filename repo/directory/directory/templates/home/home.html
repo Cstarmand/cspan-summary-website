@@ -129,7 +129,7 @@
           </div>
         <p></p>
         <h1>---Congressional Summary Website---</h1>
-        <p>Welcome to the Congressional Summary Website! Scroll down for the most recent action from the <a href="#House Sessions">House of Representatives</a>, the <a href = "Senate Sessions">Senate</a>, and the <a href="Joint Sessions">Joint Congress</a>. You can navigate to the Home and About pages using the top navigation bar and can search for either related titles or related committees.</p>
+        <p>Welcome to the Congressional Summary Website! Scroll down for the most recent action from the <a href="#House Sessions">House of Representatives</a> and the <a href = "Senate Sessions">Senate</a>. You can navigate to the Home and About pages using the top navigation bar and can search for either related titles or related committees.</p>
         <h2>House Sessions: Most Recent</h2>
         <u1>
             {% for x in range(len(data['house'])) %}
@@ -141,13 +141,6 @@
         <u1>
             {% for x in range(len(data['senate'])) %}
             <li><a href="summary/{{data['senate'][len(data['senate'])-(x+1)]p['id']}}">{{data['senate'][len(data['senate'])-(x+1)]['title']}}</a></li>
-            {% endfor %}
-        </u1>
-        <p></p>
-        <h2>Joint Sessions: Most Recent</h2>
-        <u1>
-            {% for x in range(len(data['joint'])) %}
-            <li><a href="summary/{{data['joint'][len(data['joint'])-(x+1)]p['id']}}">{{data['joint'][len(data['joint'])-(x+1)]['title']}}</a></li>
             {% endfor %}
         </u1>
         <p></p>
