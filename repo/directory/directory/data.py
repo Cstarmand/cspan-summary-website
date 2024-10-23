@@ -1,5 +1,6 @@
 from datetime import datetime
 import json
+import os, ast
 from .transcript_retrieval_functions import *
 from .claude import *
 from django.http import JsonResponse
@@ -64,16 +65,16 @@ def pull_summary(request, format=None):
     combined_data = []
 
     #Pull already gathered information from json file
-    with open('house_data_ex_transcripts.json', 'r') as file:
-        house_all_data = json.load(file)
-    with open('senate_data_ex_transcripts.json', 'r') as file:
-        senate_all_data = json.load(file)
+    with open(os.path.join(os.path.dirname(__file__), "house_data_summaries.json"), 'r') as info:
+        house_all_data = json.load(info)
+    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        senate_all_data = json.load(info)
 
     #Place already gathered ids into list so repeat generations are not completed
     for x in range(len(house_all_data)):
-        combined_data.append(house_all_data[x]['id'])
+        combined_data.append(ast.literal_eval(house_all_data[x])['id'])
     for x in range(len(senate_all_data)):
-        combined_data.append(senate_all_data[x]['id'])
+        combined_data.append(ast.literal_eval(senate_all_data[x])['id'])
     
     # Consolidates data
     house_transcripts, house_id, house_all = house_data(house_all_data, combined_data)
@@ -121,9 +122,9 @@ def pull_summary(request, format=None):
         senate_all_data.append(item)
 
     #Save data to json files
-    with open('house_data_ex_transcripts.json', 'w') as file:
+    with open('house_data_summaries.json', 'w') as file:
         json.dump(house_all_data, file)
-    with open('senate_data_ex_transcripts.json', 'w') as file:
+    with open('senate_data_summaries.json', 'w') as file:
         json.dump(senate_all_data, file)
 
     return render(request, 'generateforserverusage/generateforserverusage.html', {'data': {'house':house_final,'senate':senate_final}})

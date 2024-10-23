@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import render
 import json
+import os
 from .data import *
 
 @api_view(['GET'])
@@ -17,48 +18,61 @@ from .data import *
 #         return render(request, 'result/result.html', {'data': data})
 
 def homePage(request, format=None):
-    data = {}
     #Pulling data from respective json files
-    with open('house_data_ex_transcripts.json', 'r') as file:
-        house_all_data = json.load(file)
-    with open('senate_data_ex_transcripts.json', 'r') as file:
-        senate_all_data = json.load(file)
-    
-    data['house'] = house_all_data
-    data['senate'] = senate_all_data
+    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        house_all_data = json.load(info)
+    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        senate_all_data = json.load(info)
+
+    for x in range(len(house_all_data)):
+        house_all_data[x] = ast.literal_eval(house_all_data[x])
+    for x in range(len(senate_all_data)):
+        senate_all_data[x] = ast.literal_eval(senate_all_data[x])
+
+    data = {'house':house_all_data,'senate':senate_all_data}
+
+    #data['house'] = house_all_data
+    #data['senate'] = senate_all_data
 
     committees = []
     for x in range(len(data['house'])):
-        if data['house'][x]['committee'] not in committees:
-            committees.append(data['house'][x]['committee'])
+        if house_all_data[x]['committee'] not in committees:
+            committees.append(house_all_data[x]['committee'])
     for x in range(len(data['senate'])):
-        if data['senate'][x]['committee'] not in committees:
-            committees.append(data['senate'][x]['committee'])
+        if senate_all_data[x]['committee'] not in committees:
+            committees.append(senate_all_data[x]['committee'])
     
-    return render(request, 'home/home.html', {'data': data,'committees':committees})
+    return render(request, 'home/home.html', {"data":data,"committees":committees})
     
 def resultPage(request, format=None):
     if request.method == "POST":
         data = {}
         #Pulling data from respective json files
-        with open('house_data_ex_transcripts.json', 'r') as file:
-            house_all_data = json.load(file)
-        with open('senate_data_ex_transcripts.json', 'r') as file:
-            senate_all_data = json.load(file)
-        
-        data['house'] = house_all_data
-        data['senate'] = senate_all_data
+        with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+            house_all_data = json.load(info)
+        with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+            senate_all_data = json.load(info)
+
+        for x in range(len(house_all_data)):
+            house_all_data[x] = ast.literal_eval(house_all_data[x])
+        for x in range(len(senate_all_data)):
+            senate_all_data[x] = ast.literal_eval(senate_all_data[x])
+
+        data = {'house':house_all_data,'senate':senate_all_data}
+
+        #data['house'] = house_all_data
+        #data['senate'] = senate_all_data
 
         committees = []
         for x in range(len(data['house'])):
-            if data['house'][x]['committee'] not in committees:
-                committees.append(data['house'][x]['committee'])
+            if house_all_data[x]['committee'] not in committees:
+                committees.append(house_all_data[x]['committee'])
         for x in range(len(data['senate'])):
-            if data['senate'][x]['committee'] not in committees:
-                committees.append(data['senate'][x]['committee'])
+            if senate_all_data[x]['committee'] not in committees:
+                committees.append(senate_all_data[x]['committee'])
 
         ret = []
-        searched = request.POST('searched')
+        searched = request.POST.get('q2', '')
         for x in range(len(data['house'])):
             if searched in data['house'][x]['committee']:
                 ret.append(data['house'][x])
@@ -66,75 +80,86 @@ def resultPage(request, format=None):
             if searched in data['senate'][x]['committee']:
                 ret.append(data['senate'][x])
         return render(request, 'result/result.html', {'data': data, 'searched':searched, 'return':ret,'committees':committees})
-    else:
-        return render(request, 'result/result.html', {'data':'', 'searched':searched, 'committees':committees,'return':[{'id':'','committee':'','title':'','date':''}]})
 
 def searchPage(request, format=None):
     if request.method == "POST":
         data = {}
         #Pulling data from respective json files
-        with open('house_data_ex_transcripts.json', 'r') as file:
-            house_all_data = json.load(file)
-        with open('senate_data_ex_transcripts.json', 'r') as file:
-            senate_all_data = json.load(file)
-        
-        data['house'] = house_all_data
-        data['senate'] = senate_all_data
+        with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+            house_all_data = json.load(info)
+        with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+            senate_all_data = json.load(info)
+
+        for x in range(len(house_all_data)):
+            house_all_data[x] = ast.literal_eval(house_all_data[x])
+        for x in range(len(senate_all_data)):
+            senate_all_data[x] = ast.literal_eval(senate_all_data[x])
+
+        data = {'house':house_all_data,'senate':senate_all_data}
+
+        #data['house'] = house_all_data
+        #data['senate'] = senate_all_data
 
         committees = []
         for x in range(len(data['house'])):
-            if data['house'][x]['committee'] not in committees:
-                committees.append(data['house'][x]['committee'])
+            if house_all_data[x]['committee'] not in committees:
+                committees.append(house_all_data[x]['committee'])
         for x in range(len(data['senate'])):
-            if data['senate'][x]['committee'] not in committees:
-                committees.append(data['senate'][x]['committee'])
+            if senate_all_data[x]['committee'] not in committees:
+                committees.append(senate_all_data[x]['committee'])
 
         ret = []
-        searched = request.POST('searched')
+        searched = request.POST.get('q1', '')
         for x in range(len(data['house'])):
-            if searched in data['house'][x]['title']:
+            if searched.lower() in data['house'][x]['title'].lower():
                 ret.append(data['house'][x])
         for x in range(len(data['senate'])):
-            if searched in data['senate'][x]['title']:
+            if searched.lower() in data['senate'][x]['title'].lower():
                 ret.append(data['senate'][x])
         return render(request, 'search/search.html', {'data': data, 'searched':searched, 'return':ret,'committees':committees})
-    else:
-        return render(request, 'search/search.html', {'data':'', 'searched':searched, 'committees':committees, 'return':{'id':'','committee':'','title':'','date':''}})
+
 
 def summaryPage(request, id, format=None):
     # id is a string value that matches the id provided from congress.gov
     data = {}
     #Pulling data from respective json files
-    with open('house_data_ex_transcripts.json', 'r') as file:
-        house_all_data = json.load(file)
-    with open('senate_data_ex_transcripts.json', 'r') as file:
-        senate_all_data = json.load(file)
-    
-    data['house'] = house_all_data
-    data['senate'] = senate_all_data
+    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        house_all_data = json.load(info)
+    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        senate_all_data = json.load(info)
+
+    for x in range(len(house_all_data)):
+        house_all_data[x] = ast.literal_eval(house_all_data[x])
+    for x in range(len(senate_all_data)):
+        senate_all_data[x] = ast.literal_eval(senate_all_data[x])
+
+    data = {'house':house_all_data,'senate':senate_all_data}
+
+    #data['house'] = house_all_data
+    #data['senate'] = senate_all_data
 
     committees = []
     for x in range(len(data['house'])):
-        if data['house'][x]['committee'] not in committees:
-            committees.append(data['house'][x]['committee'])
+        if house_all_data[x]['committee'] not in committees:
+            committees.append(house_all_data[x]['committee'])
     for x in range(len(data['senate'])):
-        if data['senate'][x]['committee'] not in committees:
-            committees.append(data['senate'][x]['committee'])
+        if senate_all_data[x]['committee'] not in committees:
+            committees.append(senate_all_data[x]['committee'])
 
     check = True
     if check == True: 
-        for x in range(len(data['house'])):
-            if data['house'][x]['id'] == id:
-                data = data['house'][x]
+        for x in range(len(house_all_data)):
+            if house_all_data[x]['title'] == id:
+                data = house_all_data[x]
                 check = False
     if check == True: 
-        for x in range(len(data['senate'])):
-            if data['senate'][x]['id'] == id:
-                data = data['senate'][x]
+        for x in range(len(senate_all_data)):
+            if senate_all_data[x]['title'] == id:
+                data = senate_all_data[x]
                 check = False
     if check == True:
-        data = {'title':'invalid id','id':id,'transcript':'','summary':'','date':'','committee':''}
-    return render(request, 'summary/summary.html', {'data': data, 'id': id, 'committees':committees})
+        data = {'title':'invalid id','id':id,'transcript':'','date':'','committee':''}
+    return render(request, 'summary/summary.html', {'data': data, 'committees':committees})
     
 def aboutPage(request, format=None):
     return render(request, 'about/about.html')

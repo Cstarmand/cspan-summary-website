@@ -4,13 +4,13 @@
         <title>Results for {{ searched }}</title>
         <style>
             body {
-        background-image: url("https://th.bing.com/th/id/OIP.5EaIp8TtD388vcpLkH68FAHaE7?w=251&h=180&c=7&r=0&o=5&pid=1.7");
+        background-image: url("https://www.thoughtco.com/thmb/z58h0HbOjHlsExIw5s8fmLF0_Pk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/83951850-56a9b7573df78cf772a9e0bb.jpg");
         height: 100%;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
-        opacity: 0.9;
+        opacity: 1;
         /*backdrop-filter: blur(8px);*/
       }
       h1{
@@ -34,6 +34,7 @@
       }
       p, li{
         font-family: serif;
+        font-size: 18px;
         color: rgba(190,210,200);
         background-color: rgba(10,10,10, 0.4);
         display: table;
@@ -100,44 +101,46 @@
         </style>
     </head>
     <body>
-        <div class="topnav">
-            <a href="http://127.0.0.1:8000/home/">Home</a>
-            <a class = "active" href="http://127.0.0.1:8000/about/">About</a>
-            <div class="container">
-                <form action="http://127.0.0.1:8000/search/" class="search-bar" method="post">
-                    <input type="text" placeholder="Search By Title" name = 'q'>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <!-- <div class="container">
-                <form action="result/" class="search-bar" method="post">
-                    {% csrf_token %}
-                    <input type="text" placeholder="Search By Committee" name = 'q'>
-                    <button type="submit">Search</button>
-                </form>
-            </div> -->
-            <div class="container">
-                <form action="http://127.0.0.1:8000/result/" class="search-bar" method="post">
-                    <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q">
-                    <datalist id="committees">
-                        {% for committee in committees %}
-                            <option value="{{committee}}"></option>
-                        {% endfor %}
-                    </datalist>
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-          </div>
+      <div class="topnav">
+        <a href="http://127.0.0.1:8000/home/">Home</a>
+        <a class = "active" href="http://127.0.0.1:8000/about/">About</a>
+        <div class="container">
+            <form action="http://127.0.0.1:8000/search/" class="search-bar" method="post">
+              {% csrf_token %} 
+                <input type="text" placeholder="Search By Title" name = 'q1'>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <!-- <div class="container">
+            <form action="result/" class="search-bar" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Search By Committee" name = 'q'>
+                <button type="submit">Search</button>
+            </form>
+        </div> -->
+        <div class="container">
+            <form action="http://127.0.0.1:8000/result/" class="search-bar" method="post">
+              {% csrf_token %} 
+                <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q2">
+                <datalist id="committees">
+                    {% for committee in committees %}
+                        <option value="{{committee}}"></option>
+                    {% endfor %}
+                </datalist>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+      </div>
         <p></p>
-        <h1>Search Results</h1>
+        <h1>Search Results For</h1>
+        <h1>{{searched}}</h1>
         {% if searched %}
             <ul>
-                {% if len(return[0]['id']) == '' %}
-                <h2>No Search Results</h2>
-                {% endif %}
-                {% for x in range(len(return)) %}
-                <li><a href="summary/{{return[x]['id']}}">{{return[x]['title']}}</a></li>
-                {% endfor %}
+              {% for item in return %}
+              <li><a href="http://127.0.0.1:8000/summary/{{item.title}}">{{item.title}}</a></li>
+              {% empty %}
+              <li>No Search Results</li>
+              {% endfor %}
             </ul>
         {% else %}
             <h1>No search terms entered...</h1>

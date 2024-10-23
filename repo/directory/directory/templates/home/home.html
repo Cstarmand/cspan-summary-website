@@ -5,13 +5,13 @@
         <title>Congressional Summary Website</title>
         <style>
             body {
-        background-image: url("https://th.bing.com/th/id/OIP.ac7oyx1NUp2Ua4Pb1Tv4SAHaE6?w=262&h=180&c=7&r=0&o=5&pid=1.7");
+        background-image: url("https://advochild.org/wp-content/uploads/2021/05/AdobeStock_276452142-scaled.jpeg");
         height: 100%;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
-        opacity: 0.9;
+        opacity: 1;
         /*backdrop-filter: blur(8px);*/
       }
       h1{
@@ -35,6 +35,7 @@
       }
       p, li{
         font-family: serif;
+        font-size: 18px;
         color: rgba(190,210,200);
         background-color: rgba(10,10,10, 0.4);
         display: table;
@@ -78,6 +79,7 @@
       color: black;
     }
       input{
+      margin-top: 16px;
         font-family: serif;
       background-color: rgba(0,0,0,0.4);
       float: left;
@@ -89,6 +91,7 @@
       font-size: 14px;
       }
       button{
+      margin-top: 16px;
         font-family: serif;
         background-color: rgba(0,0,0,0.4);
       color: #f2f2f2;
@@ -106,7 +109,8 @@
             <a class = "active" href="http://127.0.0.1:8000/about/">About</a>
             <div class="container">
                 <form action="http://127.0.0.1:8000/search/" class="search-bar" method="post">
-                    <input type="text" placeholder="Search By Title" name = 'q'>
+                  {% csrf_token %} 
+                    <input type="text" placeholder="Search By Title" name = 'q1'>
                     <button type="submit">Search</button>
                 </form>
             </div>
@@ -119,7 +123,8 @@
             </div> -->
             <div class="container">
                 <form action="http://127.0.0.1:8000/result/" class="search-bar" method="post">
-                    <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q">
+                  {% csrf_token %} 
+                    <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q2">
                     <datalist id="committees">
                         {% for committee in committees %}
                             <option value="{{committee}}"></option>
@@ -130,19 +135,19 @@
             </div>
           </div>
         <p></p>
-        <h1>---Congressional Summary Website---</h1>
-        <p>Welcome to the Congressional Summary Website! Scroll down for the most recent action from the <a href="#House Sessions">House of Representatives</a> and the <a href = "Senate Sessions">Senate</a>. You can navigate to the Home and About pages using the top navigation bar and can search for either related titles or related committees.</p>
+        <h1>Congressional Summary Website</h1>
+        <p>Welcome to the Congressional Summary Website! Scroll down for the most recent action from the House of Representatives and the Senate. You can navigate to the Home and About pages using the top navigation bar and can search for either related titles or related committees.</p>
         <h2>House Sessions: Most Recent</h2>
         <u1>
-            {% for x in range(len(data['house'])) %}
-            <li><a href="summary/{{data['house'][len(data['house'])-(x+1)]p['id']}}">{{data['house'][len(data['house'])-(x+1)]['title']}}</a></li>
+            {% for item in data.house %}
+            <li><a href="http://127.0.0.1:8000/summary/{{item.title}}">{{item.title}}</a></li>
             {% endfor %}
         </u1>
         <p></p>
         <h2>Senate Sessions: Most Recent</h2>
         <u1>
-            {% for x in range(len(data['senate'])) %}
-            <li><a href="summary/{{data['senate'][len(data['senate'])-(x+1)]p['id']}}">{{data['senate'][len(data['senate'])-(x+1)]['title']}}</a></li>
+            {% for item in data.senate %}
+            <li><a href="http://127.0.0.1:8000/summary/{{item.title}}">{{item.title}}</a></li>
             {% endfor %}
         </u1>
         <p></p>
