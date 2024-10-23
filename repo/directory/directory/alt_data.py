@@ -1,3 +1,13 @@
+from datetime import datetime
+import json
+import os, ast
+from .transcript_retrieval_functions import *
+from .claude import *
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.shortcuts import render
+
 def check_new_sessions():
     #first get the json files for senate and house sessions
     f = open('senate_data.json', 'r')
@@ -39,7 +49,7 @@ def check_new_sessions():
             missing_house_sessions.append(i)
 
     #now get the current list of house sessions
-    raw_senate_sessions = get_session_list_house("https://www.congress.gov/senate-hearing-transcripts/118th-congress")
+    raw_senate_sessions = get_session_list_senate()
     dict_senate_sessions = dictify_session_list(raw_senate_sessions)
 
     missing_senate_sessions = []
