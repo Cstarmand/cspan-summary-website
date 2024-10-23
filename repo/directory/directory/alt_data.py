@@ -10,12 +10,12 @@ from django.shortcuts import render
 
 def check_new_sessions():
     #first get the json files for senate and house sessions
-    f = open('senate_data.json', 'r')
+    f = open('senate_data_backup.json', 'r')
     s = f.read()
     old_senate_sessions = [json.loads(i) for i in json.loads(s)]
     f.close()
 
-    f = open('house_data_updated.json', 'r')
+    f = open('house_data_updated_backup.json', 'r')
     s = f.read()
     old_house_sessions = [json.loads(i) for i in json.loads(s)]
     f.close()
@@ -77,11 +77,11 @@ def check_new_sessions():
 
     #upload house and senate json
     old_house_sessions = old_house_sessions + missing_house_sessions
-    f = open('house_data.json', 'w')
+    f = open('house_data_updated_backup.json', 'w')
     f.write(str(json.dumps([json.dumps(i) for i in old_house_sessions])))
     f.close()
 
     old_senate_sessions = old_senate_sessions + missing_senate_sessions
-    f = open('senate_data.json', 'w')
+    f = open('senate_data_backup.json', 'w')
     f.write(str(json.dumps([json.dumps(i) for i in old_senate_sessions])))
     f.close()
