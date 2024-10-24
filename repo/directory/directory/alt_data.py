@@ -15,6 +15,7 @@ def check_new_sessions():
     old_senate_sessions = [json.loads(i) for i in json.loads(s)]
     f.close()
 
+    #open the house data now and get it into a list of jsons
     f = open('house_data_updated_backup.json', 'r')
     s = f.read()
     old_house_sessions = [json.loads(i) for i in json.loads(s)]
@@ -33,6 +34,7 @@ def check_new_sessions():
         j = len(old_house_sessions)-1
         x = 0
         end = None
+
         
         while j >= x:
             #if the id isn't -1 (some of them don't have IDs) then it goes and checks if the id is the same 
@@ -45,6 +47,7 @@ def check_new_sessions():
                 break
             j -= 1
             x += 1
+        #if it doesn't find it adds it to a list of unique sessions
         if in_list == False:
             missing_house_sessions.append(i)
 
@@ -72,6 +75,7 @@ def check_new_sessions():
                 break
             j -= 1
             x += 1
+        #if it doesn't find it adds it to a list of unique sessions
         if in_list == False:
             missing_senate_sessions.append(i)
 
