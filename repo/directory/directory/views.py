@@ -19,7 +19,7 @@ from .data import *
 
 def homePage(request, format=None):
     #Pulling data from respective json files
-    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+    with open(os.path.join(os.path.dirname(__file__), "house_data_summaries.json"), 'r') as info:
         house_all_data = json.load(info)
     with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
         senate_all_data = json.load(info)
@@ -48,7 +48,7 @@ def resultPage(request, format=None):
     if request.method == "POST":
         data = {}
         #Pulling data from respective json files
-        with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        with open(os.path.join(os.path.dirname(__file__), "house_data_summaries.json"), 'r') as info:
             house_all_data = json.load(info)
         with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
             senate_all_data = json.load(info)
@@ -85,7 +85,7 @@ def searchPage(request, format=None):
     if request.method == "POST":
         data = {}
         #Pulling data from respective json files
-        with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        with open(os.path.join(os.path.dirname(__file__), "house_data_summaries.json"), 'r') as info:
             house_all_data = json.load(info)
         with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
             senate_all_data = json.load(info)
@@ -123,7 +123,7 @@ def summaryPage(request, id, format=None):
     # id is a string value that matches the id provided from congress.gov
     data = {}
     #Pulling data from respective json files
-    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+    with open(os.path.join(os.path.dirname(__file__), "house_data_summaries.json"), 'r') as info:
         house_all_data = json.load(info)
     with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
         senate_all_data = json.load(info)
@@ -162,7 +162,33 @@ def summaryPage(request, id, format=None):
     return render(request, 'summary/summary.html', {'data': data, 'committees':committees})
     
 def aboutPage(request, format=None):
-    return render(request, 'about/about.html')
+    # id is a string value that matches the id provided from congress.gov
+    data = {}
+    #Pulling data from respective json files
+    with open(os.path.join(os.path.dirname(__file__), "house_data_summaries.json"), 'r') as info:
+        house_all_data = json.load(info)
+    with open(os.path.join(os.path.dirname(__file__), "senate_data_summaries.json"), 'r') as info:
+        senate_all_data = json.load(info)
+
+    for x in range(len(house_all_data)):
+        house_all_data[x] = ast.literal_eval(house_all_data[x])
+    for x in range(len(senate_all_data)):
+        senate_all_data[x] = ast.literal_eval(senate_all_data[x])
+
+    data = {'house':house_all_data,'senate':senate_all_data}
+
+    #data['house'] = house_all_data
+    #data['senate'] = senate_all_data
+
+    committees = []
+    for x in range(len(data['house'])):
+        if house_all_data[x]['committee'] not in committees:
+            committees.append(house_all_data[x]['committee'])
+    for x in range(len(data['senate'])):
+        if senate_all_data[x]['committee'] not in committees:
+            committees.append(senate_all_data[x]['committee'])
+    
+    return render(request, 'about/about.html', {'committees':committees})
 
 # No posting functionality needed as homepage and get requests should function
 # @api_view(['POST'])
