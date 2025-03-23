@@ -105,10 +105,10 @@
     </head>
     <body>
         <div class="topnav">
-            <a href="http://127.0.0.1:8000/home/">Home</a>
-            <a class = "active" href="http://127.0.0.1:8000/about/">About</a>
+            <a href="http://127.0.0.1:8000/home">Home</a>
+            <a class = "active" href="http://127.0.0.1:8000/about">About</a>
             <div class="container">
-                <form action="http://127.0.0.1:8000/search/" class="search-bar" method="post">
+                <form action="http://127.0.0.1:8000/search" class="search-bar" method="post">
                   {% csrf_token %} 
                     <input type="text" placeholder="Search By Title" name = 'q1'>
                     <button type="submit">Search</button>
@@ -122,7 +122,7 @@
                 </form>
             </div> -->
             <div class="container">
-                <form action="http://127.0.0.1:8000/result/" class="search-bar" method="post">
+                <form action="http://127.0.0.1:8000/result" class="search-bar" method="post">
                   {% csrf_token %} 
                     <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q2">
                     <datalist id="committees">
@@ -136,11 +136,11 @@
             <div class="container">
               {% csrf_token %}
               {% if not user.is_authenticated %}
-                <button type="submit"> <a href="http://127.0.0.1:8000/signup/">Sign Up</a></button>
-                <button type="submit"> <a href="http://127.0.0.1:8000/signin/">Sign In</a></button>
+                <button type="submit"> <a href="http://127.0.0.1:8000/signup">Sign Up</a></button>
+                <button type="submit"> <a href="http://127.0.0.1:8000/signin">Sign In</a></button>
               {% endif %}
               {% if user.is_authenticated %}  
-                <button type="submit"> <a href="http://127.0.0.1:8000/signout/">Sign Out</a></button>
+                <button type="submit"> <a href="http://127.0.0.1:8000/signout">Sign Out</a></button>
               {% endif %}
             </div>
           </div>

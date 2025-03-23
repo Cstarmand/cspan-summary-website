@@ -99,10 +99,10 @@
     </head>
     <body>
         <div class="topnav">
-            <a href="home/">Home</a>
-            <a class = "active" href="about/">About</a>
+            <a href="home">Home</a>
+            <a class = "active" href="about">About</a>
             <div class="container">
-                <form action="search/" class="search-bar" method="post">
+                <form action="search" class="search-bar" method="post">
                     <input type="text" placeholder="Search By Title" name = 'q'>
                     <button type="submit">Search</button>
                 </form>
@@ -115,7 +115,7 @@
                 </form>
             </div> -->
             <div class="container">
-                <form action="result/" class="search-bar" method="post">
+                <form action="result" class="search-bar" method="post">
                     <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q">
                     <datalist id="committees">
                         {% for committee in committees %}

@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from . tokens import generate_token
 from django.core.mail import EmailMessage, send_mail
 import json
@@ -213,19 +213,19 @@ def signup(request, format=None):
 
         if User.objects.filter(username=username):
             messages.error(request, "Username already in use")
-            return redirect("signup")
+            return redirect('signup/')
 
         if User.objects.filter(email=email):
             messages.error(request, "Email already in use")
-            return redirect("signup")
+            return redirect('signup/')
 
         if password != confirm:
             messages.error(request, "Passwords do not match")
-            return redirect("signup")
+            return redirect('signup/')
         
         if not username.isalnum():
             messages.error(request, "Username contains special characters")
-            return redirect('signup')
+            return redirect('signup/')
 
         myuser = User.objects.create_user(username, email, password)
         myuser.first_name = firstname
@@ -260,7 +260,7 @@ def signup(request, format=None):
         email.fail_silently = True
         email.send()
 
-        return redirect('signin')
+        return redirect('home/')
 
     return render(request, 'signup/signup.html')
 
@@ -279,16 +279,18 @@ def signin(request, format=None):
 
         else:
             messages.error(request, "Bad Credentials")
-            return redirect("home")
+            return redirect('home/')
+    
+    return render(request, 'signin/signin.html')
 
 def signout(request, format=None):
     logout(request)
     messages.success(request, "You have successfully logged out!")
-    return redirect("home")
+    return redirect('home/')
 
 def activate(request, uidb64, token, format=None):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         myuser = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         myuser = None
@@ -297,7 +299,7 @@ def activate(request, uidb64, token, format=None):
         myuser.is_active = True
         myuser.save()
         login(request, myuser)
-        return redirect('home')
+        return redirect('home/')
     else:
         return render(request, 'activation_failed.html')
 
