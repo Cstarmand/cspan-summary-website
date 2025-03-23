@@ -1,7 +1,9 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
+from django.contrib import messages
 import json
 import os
 from .data import *
@@ -189,6 +191,36 @@ def aboutPage(request, format=None):
             committees.append(senate_all_data[x]['committee'])
     
     return render(request, 'about/about.html', {'committees':committees})
+
+def signup(request, format=None):
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm = request.POST.get('confirm')
+
+        myuser = User.objects.create(username, email, password)
+        myuser.first_name = firstname
+        myuser.last_name = lastname
+
+        myuser.save()
+        messages.success(request, "Your Account has successfully been created.")
+        return redirect('signin')
+
+        return
+
+    return render(request, 'signup/signup.html')
+
+def signin(request, format=None):
+    
+    return render(request, 'signin/signin.html')
+
+def signout(request, format=None):
+    
+    pass
 
 # No posting functionality needed as homepage and get requests should function
 # @api_view(['POST'])

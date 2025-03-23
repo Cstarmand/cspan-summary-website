@@ -126,12 +126,17 @@
                   {% csrf_token %} 
                     <input type="text" list="committees" placeholder="Search by Committee" class="form-control" name="q2">
                     <datalist id="committees">
-                        {% for committee in committees %}
+                        {% for committee in committees %}=
                             <option value="{{committee}}"></option>
                         {% endfor %}
                     </datalist>
                     <button type="submit">Search</button>
                 </form>
+            </div>
+            <div class="container">
+                <button type="submit"> <a href="http://127.0.0.1:8000/signup/">Sign Up</a></button>
+                <button type="submit"> <a href="http://127.0.0.1:8000/signin/">Sign In</a></button>
+                <button type="submit"> <a href="http://127.0.0.1:8000/signout/">Sign Out</a></button>
             </div>
           </div>
         <p></p>

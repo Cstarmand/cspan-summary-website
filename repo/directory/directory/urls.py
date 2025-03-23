@@ -27,7 +27,10 @@ urlpatterns = [
     path('about/', aboutPage),
     path('search/', searchPage),
     path('result/', resultPage),
-    path('generateforserverusage/', pull_summary)
+    path('generateforserverusage/', pull_summary),
+    path('signup/', signup),
+    path('signin/', signin),
+    path('signout/', signout)
 ]
 
 from rest_framework.urlpatterns import format_suffix_patterns
