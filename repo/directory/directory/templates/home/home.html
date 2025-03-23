@@ -134,13 +134,34 @@
                 </form>
             </div>
             <div class="container">
+              {% csrf_token %}
+              {% if not user.is_authenticated %}
                 <button type="submit"> <a href="http://127.0.0.1:8000/signup/">Sign Up</a></button>
                 <button type="submit"> <a href="http://127.0.0.1:8000/signin/">Sign In</a></button>
+              {% endif %}
+              {% if user.is_authenticated %}  
                 <button type="submit"> <a href="http://127.0.0.1:8000/signout/">Sign Out</a></button>
+              {% endif %}
             </div>
           </div>
         <p></p>
         <h1>Congressional Summary Website</h1>
+        
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable fade show" role="alert">
+          <strong>Message:</strong> {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <spam aria-hidden="true">&times;</spam>
+          </button>
+        </div>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+        <h3>Hello {{ firstname }}</h3>
+        <h4>You are successfully logged in</h4>
+        {% endif %}
+
+
         <p>Welcome to the Congressional Summary Website! Scroll down for the most recent action from the House of Representatives and the Senate. You can navigate to the Home and About pages using the top navigation bar and can search for either related titles or related committees.</p>
         <h2>House Sessions: Most Recent</h2>
         <u1>

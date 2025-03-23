@@ -134,11 +134,38 @@
                 </form>
             </div>
             <div class="container">
+              {% csrf_token %}
+              {% if not user.is_authenticated %}
                 <button type="submit"> <a href="http://127.0.0.1:8000/signup/">Sign Up</a></button>
                 <button type="submit"> <a href="http://127.0.0.1:8000/signin/">Sign In</a></button>
+              {% endif %}
+              {% if user.is_authenticated %}  
                 <button type="submit"> <a href="http://127.0.0.1:8000/signout/">Sign Out</a></button>
+              {% endif %}
             </div>
           </div>
           <title>Sign In</title>
+
+          {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable fade show" role="alert">
+          <strong>Message:</strong> {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <spam aria-hidden="true">&times;</spam>
+          </button>
+        </div>
+        {% endfor %}
+
+          <form action="/signin" method="post">
+          {% csrf_token %}
+            <label for="">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username (No special characters)" Required>
+            <br>
+
+            <label for="">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" Required>
+            <br>
+
+            <button type="submit">Sign In</button>
+        </form>
     </body>
 </html>

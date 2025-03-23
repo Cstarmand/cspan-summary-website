@@ -30,7 +30,8 @@ urlpatterns = [
     path('generateforserverusage/', pull_summary),
     path('signup/', signup),
     path('signin/', signin),
-    path('signout/', signout)
+    path('signout/', signout),
+    path('activate/<uidb64>/<token>', activate)
 ]
 
 from rest_framework.urlpatterns import format_suffix_patterns
