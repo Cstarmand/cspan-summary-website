@@ -31,6 +31,15 @@ urlpatterns = [
     path('signup/', signup),
     path('signin/', signin),
     path('signout/', signout),
+    path('about', aboutPage),
+    path('search', searchPage),
+    path('result', resultPage),
+    path('generateforserverusage', pull_summary),
+    path('signup', signup),
+    path('signin', signin),
+    path('signout', signout),
+    path('admin', admin.site.urls),
+    path('home', homePage),
     path('activate/<uidb64>/<token>', activate)
 ]
 
